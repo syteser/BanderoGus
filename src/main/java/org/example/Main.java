@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +37,31 @@ public class Main extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         Long chatID = getChatID(update);
 
+        if (update.hasMessage() && update.getMessage().getText().equals("/start")) {
+            SendMessage message = createMessage("Привiт!");
+            message.setChatId(chatID);
+            attachButtons(message, Map.of(
+                    "Слава Україні!", "glory_from_ukraine"
+            ));
+            sendApiMethodAsync(message);
+        }
+
+        if (update.hasCallbackQuery()) {
+            if (update.getCallbackQuery().getData().equals("glory_from_ukraine")) {
+                SendMessage message = createMessage("Героям слава!");
+                message.setChatId(chatID);
+                attachButtons(message, Map.of(
+                        "Слава нації!", "glory_from_nacii"
+                ));
+                sendApiMethodAsync(message);
+            }
+
+            if (update.getCallbackQuery().getData().equals("glory_from_nacii")) {
+                SendMessage message = createMessage("Смерть ворогам!");
+                message.setChatId(chatID);
+                sendApiMethodAsync(message);
+            }
+        }
     }
 
     public Long getChatID(Update update) {
@@ -51,12 +77,7 @@ public class Main extends TelegramLongPollingBot {
     public SendMessage createMessage(String text) {
         SendMessage message = new SendMessage();
 
-        attachButtons(message, Map.of(
-                "BTN 1", "hello_btn_1",
-                "BTN 2", "hello_btn_2"
-        ));
-
-        message.setText(text);
+        message.setText(new String(text.getBytes(), StandardCharsets.UTF_8));
         message.setParseMode("markdown");
         return message;
     }
@@ -70,7 +91,7 @@ public class Main extends TelegramLongPollingBot {
             String buttonValue = buttons.get(buttonName);
 
             InlineKeyboardButton button = new InlineKeyboardButton();
-            button.setText(buttonName);
+            button.setText(new String(buttonName.getBytes(), StandardCharsets.UTF_8));
             button.setCallbackData(buttonValue);
             keyboard.add(Arrays.asList(button));
         }
