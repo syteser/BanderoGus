@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Main extends TelegramLongPollingBot {
-    public final String MY_NAME = "Sergey";
 
     public static void main(String[] args) throws TelegramApiException {
         TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
