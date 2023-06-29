@@ -17,6 +17,7 @@ import java.util.*;
 
 public class Main extends TelegramLongPollingBot {
     private Map<Long, Integer> levels = new HashMap<>();
+    int i = 0;
 
     public static void main(String[] args) throws TelegramApiException {
         TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
