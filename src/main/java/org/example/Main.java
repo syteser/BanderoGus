@@ -16,8 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Main extends TelegramLongPollingBot {
-    private Map<Long, Integer> levels = new HashMap<>();
-    int i = 0;
+    private final Map<Long, Integer> levels = new HashMap<>();
 
     public static void main(String[] args) throws TelegramApiException {
         TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
@@ -41,21 +40,22 @@ public class Main extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().getText().equals("/start")) {
             sendImage("level-1", chatID);
 
-            SendMessage message = createMessage("Ґа-ґа-ґа!\n" +
-                    "Вітаємо у боті біолабораторії «Батько наш Бандера».\n" +
-                    "\n" +
-                    "Ти отримуєш гусака №71\n" +
-                    "\n" +
-                    "Цей бот ми створили для того, щоб твій гусак прокачався з рівня звичайної свійської худоби до рівня біологічної зброї, здатної нищити ворога. \n" +
-                    "\n" +
-                    "Щоб звичайний гусак перетворився на бандерогусака, тобі необхідно:\n" +
-                    "✔\uFE0Fвиконувати завдання\n" +
-                    "✔\uFE0Fпереходити на наступні рівні\n" +
-                    "✔\uFE0Fзаробити достатню кількість монет, щоб придбати Джавеліну і зробити свєрхтра-та-та.\n" +
-                    "\n" +
-                    "*Гусак звичайний.* Стартовий рівень.\n" +
-                    "Бонус: 5 монет.\n" +
-                    "Обери завдання, щоб перейти на наступний рівень");
+            SendMessage message = createMessage("""
+                    Ґа-ґа-ґа!
+                    Вітаємо у боті біолабораторії «Батько наш Бандера».
+
+                    Ти отримуєш гусака №71
+
+                    Цей бот ми створили для того, щоб твій гусак прокачався з рівня звичайної свійської худоби до рівня біологічної зброї, здатної нищити ворога.\s
+
+                    Щоб звичайний гусак перетворився на бандерогусака, тобі необхідно:
+                    ✔️виконувати завдання
+                    ✔️переходити на наступні рівні
+                    ✔️заробити достатню кількість монет, щоб придбати Джавеліну і зробити свєрхтра-та-та.
+
+                    *Гусак звичайний.* Стартовий рівень.
+                    Бонус: 5 монет.
+                    Обери завдання, щоб перейти на наступний рівень""");
             message.setChatId(chatID);
 
             List<String> buttons = Arrays.asList(
@@ -80,9 +80,10 @@ public class Main extends TelegramLongPollingBot {
                 setLevels(chatID, 2);
                 sendImage("level-2", chatID);
 
-                SendMessage message = createMessage("*Вітаємо на другому рівні! Твій гусак - біогусак.*\n" +
-                        "Баланс: 20 монет. \n" +
-                        "Обери завдання, щоб перейти на наступний рівень");
+                SendMessage message = createMessage("""
+                        *Вітаємо на другому рівні! Твій гусак - біогусак.*
+                        Баланс: 20 монет.\s
+                        Обери завдання, щоб перейти на наступний рівень""");
                 message.setChatId(chatID);
 
                 List<String> buttons = Arrays.asList(
@@ -106,9 +107,10 @@ public class Main extends TelegramLongPollingBot {
                 setLevels(chatID, 3);
                 sendImage("level-3", chatID);
 
-                SendMessage message = createMessage("*Вітаємо на третьому рівні! Твій гусак - бандеростажер.*\n" +
-                        "Баланс: 35 монет. \n" +
-                        "Обери завдання, щоб перейти на наступний рівень");
+                SendMessage message = createMessage("""
+                        *Вітаємо на третьому рівні! Твій гусак - бандеростажер.*
+                        Баланс: 35 монет.\s
+                        Обери завдання, щоб перейти на наступний рівень""");
                 message.setChatId(chatID);
 
                 List<String> buttons = Arrays.asList(
@@ -132,9 +134,10 @@ public class Main extends TelegramLongPollingBot {
                 setLevels(chatID, 4);
                 sendImage("level-4", chatID);
 
-                SendMessage message = createMessage("*Вітаємо на останньому рівні! Твій гусак - готова біологічна зброя - бандерогусак.*\n" +
-                        "Баланс: 50 монет. \n" +
-                        "Тепер ти можеш придбати Джавелін і глушити чмонь");
+                SendMessage message = createMessage("""
+                        *Вітаємо на останньому рівні! Твій гусак - готова біологічна зброя - бандерогусак.*
+                        Баланс: 50 монет.\s
+                        Тепер ти можеш придбати Джавелін і глушити чмонь""");
                 message.setChatId(chatID);
 
                 attachButtons(message, Map.of(
