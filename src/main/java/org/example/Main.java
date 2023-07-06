@@ -109,7 +109,7 @@ public class Main extends TelegramLongPollingBot {
 
     private void secondScreen(Long chatID) {
         setLevels(chatID, 2);
-        sendImage("V_razrabotke", chatID);
+        sendImage("v_razrabotke", chatID);
         SendMessage message = createMessage("""
                 *В процесі розробки.....*""");
         message.setChatId(chatID);
