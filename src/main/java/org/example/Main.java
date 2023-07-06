@@ -41,23 +41,11 @@ public class Main extends TelegramLongPollingBot {
             firstScreen(chatID);
         }
 
-        if (update.hasCallbackQuery()) {
-            setLevels(chatID, 2);
-//            sendImage("SV_reklama", chatID);
-            SendMessage message = createMessage("""
-                    *В процесі розробки.....*""");
-            message.setChatId(chatID);
-
-            List<String> buttons = Arrays.asList(
-                    "До головного меню"
-            );
-
-            attachButtons(message, Map.of(
-                    buttons.get(0), "level_2_task"));
-            sendApiMethodAsync(message);
+        if (update.hasCallbackQuery() && update.getCallbackQuery().getData().equals("btn_to_second_screen")) {
+            secondScreen(chatID);
         }
 
-        if (update.getCallbackQuery().getData().equals("level_1_task") && getLevel(chatID) == 2) {
+        if (update.hasCallbackQuery() && update.getCallbackQuery().getData().equals("btn_main_menu")) {
             setLevels(chatID, 1);
             firstScreen(chatID);
         }
@@ -119,6 +107,22 @@ public class Main extends TelegramLongPollingBot {
 //        }
     }
 
+    private void secondScreen(Long chatID) {
+        setLevels(chatID, 2);
+        sendImage("V_razrabotke", chatID);
+        SendMessage message = createMessage("""
+                *В процесі розробки.....*""");
+        message.setChatId(chatID);
+
+        List<String> buttons = Arrays.asList(
+                "До головного меню"
+        );
+
+        attachButtons(message, Map.of(
+                buttons.get(0), "btn_main_menu"));
+        sendApiMethodAsync(message);
+    }
+
     private void firstScreen(Long chatID) {
         sendImage("SV_reklama", chatID);
         SendMessage message = createMessage("""
@@ -142,9 +146,9 @@ public class Main extends TelegramLongPollingBot {
         buttons = getRandom3(buttons);
 
         attachButtons(message, Map.of(
-                buttons.get(0), "level_1_task",
-                buttons.get(1), "level_1_task",
-                buttons.get(2), "level_1_task"));
+                buttons.get(0), "btn_to_second_screen",
+                buttons.get(1), "btn_to_second_screen",
+                buttons.get(2), "btn_to_second_screen"));
         sendApiMethodAsync(message);
     }
 
