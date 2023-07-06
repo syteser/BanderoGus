@@ -152,6 +152,8 @@ public class Main extends TelegramLongPollingBot {
         sendApiMethodAsync(message);
     }
 
+
+    /////////////////////////////////////////////////////////////////
     public Long getChatID(Update update) {
         if (update.hasMessage()) {
             return update.getMessage().getFrom().getId();
