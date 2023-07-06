@@ -114,12 +114,15 @@ public class Main extends TelegramLongPollingBot {
                 *В процесі розробки.....*""");
         message.setChatId(chatID);
 
-        List<String> buttons = Arrays.asList(
-                "До головного меню"
-        );
+        toMainScreen(message);
+    }
 
+    private void toMainScreen(SendMessage message) {
+//        List<String> buttons = Arrays.asList(
+//                "До головного меню"
+//        );
         attachButtons(message, Map.of(
-                buttons.get(0), "btn_main_menu"));
+                "До головного меню", "btn_main_menu"));
         sendApiMethodAsync(message);
     }
 
@@ -138,12 +141,12 @@ public class Main extends TelegramLongPollingBot {
         message.setChatId(chatID);
 
         List<String> buttons = Arrays.asList(
-                "Подивитись адресу магазину та часи роботи",
+                "Подивитись телефон/адресу магазину та часи роботи",
                 "Замовити дзвінок майстра та записатись на діагностику",
                 "Подивитись повний перелік робіт які виконує сервіс."
         );
 
-        buttons = getRandom3(buttons);
+//                buttons = getRandom3(buttons);
 
         attachButtons(message, Map.of(
                 buttons.get(0), "btn_to_second_screen",
