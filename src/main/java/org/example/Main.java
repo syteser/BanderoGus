@@ -38,7 +38,7 @@ public class Main extends TelegramLongPollingBot {
         Long chatID = getChatID(update);
 
         if (update.hasMessage() && update.getMessage().getText().equals("/start")) {
-            firstScreen(update, chatID);
+            firstScreen(chatID);
         }
 
         if (update.hasCallbackQuery()) {
@@ -59,7 +59,7 @@ public class Main extends TelegramLongPollingBot {
 
         if (update.getCallbackQuery().getData().equals("level_1_task") && getLevel(chatID) == 2) {
             setLevels(chatID, 1);
-            firstScreen(update, chatID);
+            firstScreen(chatID);
         }
 
 
@@ -119,7 +119,7 @@ public class Main extends TelegramLongPollingBot {
 //        }
     }
 
-    private void firstScreen(Update update, Long chatID) {
+    private void firstScreen(Long chatID) {
         sendImage("SV_reklama", chatID);
         SendMessage message = createMessage("""
                 Доброго дня!
@@ -146,7 +146,6 @@ public class Main extends TelegramLongPollingBot {
                 buttons.get(1), "level_1_task",
                 buttons.get(2), "level_1_task"));
         sendApiMethodAsync(message);
-
     }
 
     public Long getChatID(Update update) {
