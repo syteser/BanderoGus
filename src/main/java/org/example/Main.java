@@ -25,7 +25,7 @@ public class Main extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "5820632523:AAEF0-n52yixQuFeyJwhAo1q4oxHTwsgGBA";
+        return "6351485135:AAE2ZU59_CcY5lu83aMLhbYOX3b_fiArDDI";
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Main extends TelegramLongPollingBot {
 
         if (update.hasCallbackQuery()) {
             setLevels(chatID, 2);
-            sendImage("SV_reklama", chatID);
+//            sendImage("SV_reklama", chatID);
             SendMessage message = createMessage("""
                     *В процесі розробки.....*""");
             message.setChatId(chatID);
