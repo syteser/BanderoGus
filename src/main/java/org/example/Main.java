@@ -45,8 +45,12 @@ public class Main extends TelegramLongPollingBot {
             secondScreen(chatID);
         }
 
+        if (update.hasCallbackQuery() && update.getCallbackQuery().getData().equals("btn_contakti")) {
+            contaktiScreen(chatID);
+        }
+
         if (update.hasCallbackQuery() && update.getCallbackQuery().getData().equals("btn_main_menu")) {
-            setLevels(chatID, 1);
+//            setLevels(chatID, 1);
             firstScreen(chatID);
         }
 
@@ -107,23 +111,22 @@ public class Main extends TelegramLongPollingBot {
 //        }
     }
 
+    private void toMainScreen(SendMessage message) {
+//        List<String> buttons = Arrays.asList(
+//                "До головного меню"
+//        );
+        attachButtons(message, Map.of("До головного меню", "btn_main_menu"));
+        sendApiMethodAsync(message);
+    }
+
     private void secondScreen(Long chatID) {
-        setLevels(chatID, 2);
+//        setLevels(chatID, 2);
         sendImage("v_razrabotke", chatID);
         SendMessage message = createMessage("""
                 *В процесі розробки.....*""");
         message.setChatId(chatID);
 
         toMainScreen(message);
-    }
-
-    private void toMainScreen(SendMessage message) {
-//        List<String> buttons = Arrays.asList(
-//                "До головного меню"
-//        );
-        attachButtons(message, Map.of(
-                "До головного меню", "btn_main_menu"));
-        sendApiMethodAsync(message);
     }
 
     private void firstScreen(Long chatID) {
@@ -149,10 +152,25 @@ public class Main extends TelegramLongPollingBot {
 //                buttons = getRandom3(buttons);
 
         attachButtons(message, Map.of(
-                buttons.get(0), "btn_to_second_screen",
+                buttons.get(0), "btn_contakti",
                 buttons.get(1), "btn_to_second_screen",
                 buttons.get(2), "btn_to_second_screen"));
         sendApiMethodAsync(message);
+    }
+
+    private void contaktiScreen(Long chatID) {
+        sendImage("SV_reklama", chatID);
+        SendMessage message = createMessage("""
+                *Адреса та телефони SV-Service:*
+                ✔️смт. Донець, вул. Центральна 15. Вхід зі сторони Будинка Культури.
+                ✔️тел. +380(95)363-25-65
+
+                **Час роботи:**
+                ✔️09.00-19.00
+                ✔️пн - нд.""");
+        message.setChatId(chatID);
+
+        toMainScreen(message);
     }
 
 
@@ -204,17 +222,17 @@ public class Main extends TelegramLongPollingBot {
         executeAsync(animation);
     }
 
-    public int getLevel(Long chatID) {
-        return levels.getOrDefault(chatID, 1);
-    }
+//    public int getLevel(Long chatID) {
+//        return levels.getOrDefault(chatID, 1);
+//    }
 
-    public void setLevels(Long chatID, int level) {
-        levels.put(chatID, level);
-    }
+//    public void setLevels(Long chatID, int level) {
+//        levels.put(chatID, level);
+//    }
 
-    public List<String> getRandom3(List<String> variant) {
-        ArrayList<String> copy = new ArrayList<>(variant);
-        Collections.shuffle(copy);
-        return copy.subList(0, 3);
-    }
+//    public List<String> getRandom3(List<String> variant) {
+//        ArrayList<String> copy = new ArrayList<>(variant);
+//        Collections.shuffle(copy);
+//        return copy.subList(0, 3);
+//    }
 }
